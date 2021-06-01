@@ -1,11 +1,70 @@
 ieee:
   base: "https://ieeexplore.ieee.org/"
   urls:
-    - https://ieeexplore.ieee.org/xpl/tocresult.jsp?isnumber=4358840
-    - https://ieeexplore.ieee.org/xpl/tocresult.jsp?isnumber=4359286
-    - https://ieeexplore.ieee.org/xpl/tocresult.jsp?isnumber=6104215
-    - https://ieeexplore.ieee.org/xpl/tocresult.jsp?isnumber=4358651
-    - https://ieeexplore.ieee.org/xpl/tocresult.jsp?isnumber=4358933
-    - https://ieeexplore.ieee.org/xpl/tocresult.jsp?isnumber=4667673
-    - https://ieeexplore.ieee.org/xpl/tocresult.jsp?isnumber=4358835
+    - 4358840
+    - 4359286
+    - 6104215
+    - 4358651
+    - 4358933
+    - 4667673
+    - 4358835
+    - 6352949
+    - 4359509
+    - 4358004
+    - 7339444
+    - 4456689
+    - 6376248
+    - 7153538
+    - 6514899
+
+elsevier:
+  journals:
+    - pattern-recognition
+    - neurocomputing
+    - information-sciences
+    - knowledge-based-systems
+    - information-fusion
+    - expert-systems-with-applications
+    - computer-vision-and-image-understanding
+    - image-and-vision-computing
+    - artificial-intelligence
+    - pattern-recognition-letters
+    - neural-networks
+    - signal-processing
+    - applied-mathematics-and-computation
+    - journal-of-visual-communication-and-image-representation
+    - linear-algebra-and-its-applications
+
+springer:
+  base: https://link.springer.com/
+  journals:
+    - 10994
+    - 11042
+    - 10115
+    - 11263
+    - 521
+    - 10618
+    - 10462
+    - 10489
+    - 11280
+    - 371
+    - 41060
+    - 10589
+    - 138
+    - 10845
+    - 13042
+    - 11590
+    - 10851
+    - 10208
+    - 34
+    - 11063
+    - 10915
+    - 11704
+    - 10957
+    - 12021
+    - 11760
+    - 11222
+    - 10044
+
+
 

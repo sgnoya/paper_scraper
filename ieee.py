@@ -57,7 +57,12 @@ def discord(message):
 for url in urls:
     # Get the list of papers
     msg = None
-    soup = get_class(url, "global-content-wrapper", "class")
+    _url = "https://ieeexplore.ieee.org/xpl/tocresult.jsp?isnumber=" + str(url)
+    soup = get_class(
+        _url,
+        "global-content-wrapper",
+        "class",
+    )
     docs = soup.find_all("a")
     docs = [doc.get("href") for doc in docs]  # all link
     docs = [doc for doc in docs if doc is not None]
@@ -91,13 +96,13 @@ for url in urls:
         meta = re.sub("xplGlobal.document.metadata\=", "", meta)
 
         dic = json.loads(meta)
-        abstract = dic["abstract"]
         title = dic["formulaStrippedArticleTitle"]
         date = dic["onlineDate"]
         link = dic["doiLink"]
 
         if msg is None:
             msg = "@here " + dic["publicationTitle"] + "\n"
+            msg += _url + "\n"
             discord(msg)
         msg = title + "\n" + link + "\n"
 
