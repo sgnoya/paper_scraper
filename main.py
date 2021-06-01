@@ -1,6 +1,7 @@
 # %%
 import datetime
 import json
+import os
 import re
 import time
 
@@ -20,9 +21,9 @@ y_month = yesterday.strftime("%B")
 y_year = yesterday.strftime("%Y")
 y_day = yesterday.strftime("%d")
 
-
-keys = OmegaConf.load("keys.yml")
-subscribe = OmegaConf.load("subscribe.yml")
+cwd, _ = os.path.split(os.path.abspath(__file__))
+keys = OmegaConf.load(os.path.join(cwd, "keys.yml"))
+subscribe = OmegaConf.load(os.path.join(cwd, "subscribe.yml"))
 
 base = subscribe.ieee.base
 urls = subscribe.ieee.urls
