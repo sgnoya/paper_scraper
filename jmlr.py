@@ -12,6 +12,7 @@ keys = OmegaConf.load(os.path.join(cwd, "keys.yml"))
 with open(os.path.join(cwd, "jmlr.csv"), "r") as f:
     data = f.readlines()
 
+
 def discord(message):
     url = keys.discord
     payload = {"content": message}
@@ -19,6 +20,7 @@ def discord(message):
     with requests.Session() as s:
         s.headers.update({"Content-Type": "application/x-www-form-urlencoded"})
         return s.post(url, data=payload)
+
 
 sent = []
 
@@ -28,8 +30,12 @@ soup = BeautifulSoup(response.content.decode(), "html.parser")
 docs = soup.find_all("dl")
 
 # %%
+discord("@here JMLR \n")
+time.sleep(2)
 msg = ""
+
 for i, doc in enumerate(docs):
+
     title = doc.find("dt").text
     link = doc.find_all("a")
     link = url + [i.get("href") for i in link if "pdf" in i.get("href")][0]

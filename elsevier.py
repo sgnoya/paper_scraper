@@ -34,7 +34,7 @@ for journal in journals:
     soup = BeautifulSoup(response.content.decode(), "html.parser")
     docs = soup.find_all("div", class_="pod-listing")
 
-    msg = "@here " + journal + "\n"
+    msg = "@here (Elsevier)" + journal + "\n"
     discord(msg)
     time.sleep(2)
 

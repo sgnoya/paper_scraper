@@ -37,14 +37,18 @@ for journal in journals:
     soup = BeautifulSoup(response.content.decode(), "html.parser")
     docs = soup.find_all("a", class_="title")
 
-    msg = "@here " + url + "\n"
+    msg = (
+        "@here (Springer)"
+        + soup.find("p", class_="title").text.replace("\n", "")
+        + "\n"
+    )
     discord(msg)
     time.sleep(2)
 
     msg = ""
     for i, doc in enumerate(docs):
         link = base + doc.get("href")
-        title = doc.text
+        title = doc.text.replace("\n", "")
 
         if title + "\n" not in data:
             msg += title + "\n" + link + "\n"
