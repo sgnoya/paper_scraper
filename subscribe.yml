@@ -66,5 +66,26 @@ springer:
     - 11222
     - 10044
 
+siam:
+  urls:
+    - https://epubs.siam.org/action/showFeed?ui=0&mi=9cxj18&ai=s3&jc=smjmap&type=etoc&feed=rss
+    - https://epubs.siam.org/action/showFeed?ui=0&mi=9cxj18&ai=sd&jc=sjisbi&type=etoc&feed=rss
+    - https://epubs.siam.org/action/showFeed?ui=0&mi=9cxj18&ai=5dk&jc=sjaabq&type=etoc&feed=rss
+    - https://epubs.siam.org/action/showFeed?ui=0&mi=9cxj18&ai=sb&jc=sjaday&type=etoc&feed=rss
+    - https://epubs.siam.org/action/showFeed?ui=0&mi=9cxj18&ai=s1&jc=smjcat&type=etoc&feed=rss
+    - https://epubs.siam.org/action/showFeed?ui=0&mi=9cxj18&ai=sc&jc=sjcodc&type=etoc&feed=rss
+    - https://epubs.siam.org/action/showFeed?ui=0&mi=9cxj18&ai=sa&jc=sjdmec&type=etoc&feed=rss
+    - https://epubs.siam.org/action/showFeed?ui=0&mi=9cxj18&ai=s8&jc=sjfmbj&type=etoc&feed=rss
+    - https://epubs.siam.org/action/showFeed?ui=0&mi=9cxj18&ai=s2&jc=sjmaah&type=etoc&feed=rss
+    - https://epubs.siam.org/action/showFeed?ui=0&mi=9cxj18&ai=2bst&jc=sjmdaq&type=etoc&feed=rss
+    - https://epubs.siam.org/action/showFeed?ui=0&mi=9cxj18&ai=s7&jc=sjmael&type=etoc&feed=rss
+    - https://epubs.siam.org/action/showFeed?ui=0&mi=9cxj18&ai=s0&jc=sjnaam&type=etoc&feed=rss
+    - https://epubs.siam.org/action/showFeed?ui=0&mi=9cxj18&ai=s6&jc=sjope8&type=etoc&feed=rss
+    - https://epubs.siam.org/action/showFeed?ui=0&mi=9cxj18&ai=se&jc=sjoce3&type=etoc&feed=rss
+    - https://epubs.siam.org/action/showFeed?ui=0&mi=9cxj18&ai=1gc&jc=sjuqa3&type=etoc&feed=rss
+    - https://epubs.siam.org/action/showFeed?ui=0&mi=9cxj18&ai=s5&jc=siread&type=etoc&feed=rss
+    - https://epubs.siam.org/action/showFeed?ui=0&mi=9cxj18&ai=s4&jc=tprbau&type=etoc&feed=rss
+
+
 
 
