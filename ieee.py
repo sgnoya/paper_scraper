@@ -11,6 +11,8 @@ from omegaconf import OmegaConf
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
+from utils import discord, init_twitterapi
+
 today = datetime.datetime.today()
 t_month = today.strftime("%B")
 t_year = today.strftime("%Y")
@@ -28,6 +30,11 @@ subscribe = OmegaConf.load(os.path.join(cwd, "subscribe.yml"))
 base = subscribe.ieee.base
 urls = subscribe.ieee.urls
 
+twkeys = keys.twitter.app
+twapi = init_twitterapi(
+    twkeys.apikey, twkeys.apisecret, twkeys.token, twkeys.tokensecret
+)
+
 options = Options()
 options.add_argument("--headless")
 
@@ -43,15 +50,6 @@ def get_class(_url, _target, _type="class"):
     soup = BeautifulSoup(elem.get_attribute("innerHTML"), "html.parser")
     driver.quit()
     return soup
-
-
-def discord(message):
-    url = keys.discord
-    payload = {"content": message}
-
-    with requests.Session() as s:
-        s.headers.update({"Content-Type": "application/x-www-form-urlencoded"})
-        return s.post(url, data=payload)
 
 
 for url in urls:
@@ -103,13 +101,14 @@ for url in urls:
         if msg is None:
             msg = "@here " + dic["publicationTitle"] + "\n"
             msg += _url + "\n"
-            discord(msg)
-        msg = title + "\n" + link + "\n"
+            discord(keys.discord, msg)
 
         # send the paper
         day, month, year = date.split(" ")
-        if int(day) == int(t_day) and month == t_month and year == t_year:
-            discord(msg)
-
-        if int(day) == int(y_day) and month == y_month and year == y_year:
-            discord(msg)
+        if (int(day) == int(t_day) and month == t_month and year == t_year) or (
+            int(day) == int(y_day) and month == y_month and year == y_year
+        ):
+            msg = "[" + dic["publicationTitle"] + "]\n"
+            msg += title + "\n" + link + "\n"
+            discord(keys.discord, msg)
+            twapi.update_status(msg)

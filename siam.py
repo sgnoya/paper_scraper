@@ -7,6 +7,8 @@ import requests
 from bs4 import BeautifulSoup
 from omegaconf import OmegaConf
 
+from utils import discord, init_twitterapi
+
 today = datetime.datetime.today()
 today = today.replace(hour=8, minute=0, second=0, microsecond=0)
 yesterday = today + datetime.timedelta(days=-1)
@@ -15,16 +17,11 @@ cwd, _ = os.path.split(os.path.abspath(__file__))
 keys = OmegaConf.load(os.path.join(cwd, "keys.yml"))
 subscribe = OmegaConf.load(os.path.join(cwd, "subscribe.yml"))
 
+twkeys = keys.twitter.app
+twapi = init_twitterapi(
+    twkeys.apikey, twkeys.apisecret, twkeys.token, twkeys.tokensecret
+)
 urls = subscribe.siam.urls
-
-
-def discord(message):
-    url = keys.discord
-    payload = {"content": message}
-
-    with requests.Session() as s:
-        s.headers.update({"Content-Type": "application/x-www-form-urlencoded"})
-        return s.post(url, data=payload)
 
 
 # %%
@@ -48,11 +45,13 @@ for url in urls:
             channel = soup.find("channel")
             msg = "@here " + doc.find("dc:source").text + "\n"
             msg += channel.get("rdf:about") + "\n"
-            discord(msg)
+            discord(keys.discord, msg)
             time.sleep(1)
 
-        msg = title + "\n" + link + "\n"
         # send the paper
         if date == today or date == yesterday:
-            discord(msg)
+            msg = "[" + doc.find("dc:source").text + "]\n"
+            msg = title + "\n" + link + "\n"
+            twapi.update_status(msg)
+            discord(keys.discord, msg)
             time.sleep(1)

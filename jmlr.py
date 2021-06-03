@@ -6,21 +6,19 @@ import requests
 from bs4 import BeautifulSoup
 from omegaconf import OmegaConf
 
+from utils import discord, init_twitterapi
+
 cwd, _ = os.path.split(os.path.abspath(__file__))
 keys = OmegaConf.load(os.path.join(cwd, "keys.yml"))
 
+twkeys = keys.twitter.app
+twapi = init_twitterapi(
+    twkeys.apikey, twkeys.apisecret, twkeys.token, twkeys.tokensecret
+)
+
+
 with open(os.path.join(cwd, "jmlr.csv"), "r") as f:
     data = f.readlines()
-
-
-def discord(message):
-    url = keys.discord
-    payload = {"content": message}
-
-    with requests.Session() as s:
-        s.headers.update({"Content-Type": "application/x-www-form-urlencoded"})
-        return s.post(url, data=payload)
-
 
 sent = []
 
@@ -30,7 +28,7 @@ soup = BeautifulSoup(response.content.decode(), "html.parser")
 docs = soup.find_all("dl")
 
 # %%
-discord("@here JMLR \n")
+discord(keys.discord, "@here JMLR \n")
 time.sleep(2)
 msg = ""
 
@@ -44,12 +42,17 @@ for i, doc in enumerate(docs):
         msg += title + "\n" + link + "\n"
         sent.append(title + "\n")
 
+        _msg = "[JMLR] "
+        _msg += title + "\n" + link + "\n"
+        twapi.update_status(_msg)
+        time.sleep(0.1)
+
     if (i + 1) % 9 == 0:
-        discord(msg + "\n")
+        discord(keys.discord, msg + "\n")
         time.sleep(2)
         msg = ""
 
-discord(msg + "\n")
+discord(keys.discord, msg + "\n")
 time.sleep(2)
 
 with open(os.path.join(cwd, "jmlr.csv"), "a") as f:
