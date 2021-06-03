@@ -111,4 +111,7 @@ for url in urls:
             msg = "[" + dic["publicationTitle"] + "]\n"
             msg += title + "\n" + link + "\n"
             discord(keys.discord, msg)
-            twapi.update_status(msg)
+            try:
+                twapi.update_status(msg)
+            except Exception as e:
+                print(e)

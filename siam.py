@@ -52,6 +52,9 @@ for url in urls:
         if date == today or date == yesterday:
             msg = "[" + doc.find("dc:source").text + "]\n"
             msg = title + "\n" + link + "\n"
-            twapi.update_status(msg)
             discord(keys.discord, msg)
+            try:
+                twapi.update_status(msg)
+            except Exception as e:
+                print(e)
             time.sleep(1)

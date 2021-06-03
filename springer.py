@@ -49,8 +49,11 @@ for journal in journals:
 
             _msg = "[Springer: " + journal_name + "]\n"
             _msg += title + "\n" + link + "\n"
-            twapi.update_status(_msg)
-            time.sleep(0.1)
+            try:
+                twapi.update_status(msg)
+                time.sleep(0.1)
+            except Exception as e:
+                print(e)
 
         if (i + 1) % 9 == 0:
             discord(keys.discord, msg + "\n")
