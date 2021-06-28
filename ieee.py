@@ -13,6 +13,10 @@ from selenium.webdriver.chrome.options import Options
 
 from utils import discord, init_twitterapi
 
+cwd, _ = os.path.split(os.path.abspath(__file__))
+with open(os.path.join(cwd, "ieee.csv"), "r") as f:
+    data = f.readlines()
+
 today = datetime.datetime.today()
 t_month = today.strftime("%B")
 t_year = today.strftime("%Y")
@@ -51,6 +55,8 @@ def get_class(_url, _target, _type="class"):
     driver.quit()
     return soup
 
+
+sent = []
 
 for url in urls:
     # Get the list of papers
@@ -108,10 +114,17 @@ for url in urls:
         if (int(day) == int(t_day) and month == t_month and year == t_year) or (
             int(day) == int(y_day) and month == y_month and year == y_year
         ):
-            msg = "[" + dic["publicationTitle"] + "]\n"
-            msg += title + "\n" + link + "\n"
-            discord(keys.discord, msg)
-            try:
-                twapi.update_status(msg)
-            except Exception as e:
-                print(e)
+            if title + "\n" not in data:
+                sent.append(title + "\n")
+
+                msg = "[" + dic["publicationTitle"] + "]\n"
+                msg += title + "\n" + link + "\n"
+                discord(keys.discord, msg)
+                try:
+                    twapi.update_status(msg)
+                except Exception as e:
+                    print(e)
+
+
+with open(os.path.join(cwd, "ieee.csv"), "a") as f:
+    f.writelines(sent)

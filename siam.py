@@ -51,7 +51,7 @@ for url in urls:
         # send the paper
         if date == today or date == yesterday:
             msg = "[" + doc.find("dc:source").text + "]\n"
-            msg = title + "\n" + link + "\n"
+            msg += title + "\n" + link + "\n"
             discord(keys.discord, msg)
             try:
                 twapi.update_status(msg)

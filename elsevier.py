@@ -48,7 +48,7 @@ for journal in journals:
             _msg = "[Elsevier: " + journal + "]\n"
             _msg += title + "\n" + link + "\n"
             try:
-                twapi.update_status(msg)
+                twapi.update_status(_msg)
                 time.sleep(0.1)
             except Exception as e:
                 print(e)
