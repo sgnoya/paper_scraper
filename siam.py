@@ -23,6 +23,9 @@ twapi = init_twitterapi(
 )
 urls = subscribe.siam.urls
 
+with open(os.path.join(cwd, "siam.csv"), "r") as f:
+    data = f.readlines()
+sent = []
 
 # %%
 for url in urls:
@@ -53,8 +56,12 @@ for url in urls:
             msg = "[" + doc.find("dc:source").text + "]\n"
             msg += title + "\n" + link + "\n"
             discord(keys.discord, msg)
+            sent.append(title + "\n")
             try:
                 twapi.update_status(msg)
             except Exception as e:
                 print(e)
             time.sleep(1)
+
+with open(os.path.join(cwd, "siam.csv"), "a") as f:
+    f.writelines(sent)
