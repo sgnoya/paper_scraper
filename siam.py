@@ -52,7 +52,7 @@ for url in urls:
             time.sleep(1)
 
         # send the paper
-        if date == today or date == yesterday:
+        if (date == today or date == yesterday) and title + "\n" not in data:
             msg = "[" + doc.find("dc:source").text + "]\n"
             msg += title + "\n" + link + "\n"
             discord(keys.discord, msg)
