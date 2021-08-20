@@ -26,10 +26,7 @@ with open(os.path.join(cwd, "springer.csv"), "r") as f:
 sent = []
 
 for journal in journals:
-    url = (
-        "https://link.springer.com/search?query=&search-within=Journal&facet-journal-id="
-        + str(journal)
-    )
+    url = "https://link.springer.com/search?facet-journal-id=" + str(journal)
     response = requests.get(url)
     soup = BeautifulSoup(response.content.decode(), "html.parser")
     docs = soup.find_all("a", class_="title")
@@ -65,3 +62,5 @@ for journal in journals:
 
 with open(os.path.join(cwd, "springer.csv"), "a") as f:
     f.writelines(sent)
+
+# %%

@@ -29,8 +29,7 @@ for journal in journals:
         "https://www.journals.elsevier.com/" + journal + "/recent-articles"
     )
     soup = BeautifulSoup(response.content.decode(), "html.parser")
-    docs = soup.find_all("div", class_="pod-listing")
-
+    docs = soup.find_all("article")
     msg = "@here (Elsevier)" + journal + "\n"
     discord(keys.discord, msg)
     time.sleep(2)
@@ -38,7 +37,7 @@ for journal in journals:
     msg = ""
     for i, doc in enumerate(docs):
         meta = doc.find("a")
-        title = meta.get("title")
+        title = meta.text
         link = meta.get("href")
 
         if title + "\n" not in data:
