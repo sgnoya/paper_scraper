@@ -26,19 +26,24 @@ with open(os.path.join(cwd, "springer.csv"), "r") as f:
 sent = []
 
 for journal in journals:
-    url = "https://link.springer.com/search?facet-journal-id=" + str(journal)
+    url = "https://link.springer.com/search.rss?facet-journal-id=" + str(journal)
     response = requests.get(url)
-    soup = BeautifulSoup(response.content.decode(), "html.parser")
-    docs = soup.find_all("a", class_="title")
-    journal_name = soup.find("p", class_="title").text.replace("\n", "")
+    soup = BeautifulSoup(response.content.decode(), "xml")
+
+    docs = soup.find_all("item")
+
+    journal_info = docs[0]
+    journal_name = journal_info.title.text
+
     msg = "@here (Springer)" + journal_name + "\n"
     discord(keys.discord, msg)
     time.sleep(2)
 
+    docs = docs[1:]
     msg = ""
     for i, doc in enumerate(docs):
-        link = base + doc.get("href")
-        title = doc.text.replace("\n", "")
+        link = doc.link.text
+        title = doc.title.text
 
         if title + "\n" not in data:
             msg += title + "\n" + link + "\n"
