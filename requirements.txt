@@ -1,5 +1,6 @@
 requests>=2.25.1
 BeautifulSoup4
 selenium
-chromedriver-binary
 tweepy>=4.0.0
+omegaconf
+chromedriver-binary
