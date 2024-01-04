@@ -2,6 +2,19 @@ import requests
 import tweepy
 
 
+class TwitterAPI2:
+    def __init__(self, key, secret, token, tsecret):
+        self.client = tweepy.Client(
+            consumer_key=key,
+            consumer_secret=secret,
+            access_token=token,
+            access_token_secret=tsecret,
+        )
+
+    def update_status(self, msg):
+        self.client.create_tweet(text=msg)
+
+
 def discord(url, message):
     payload = {"content": message}
     with requests.Session() as s:
@@ -16,8 +29,5 @@ def init_twitterapi(key, secret, token, tsecret):
     token = keys.twitter.app.token
     tokensecret = keys.twitter.app.tokensecret
     """
-    auth = tweepy.OAuthHandler(key, secret)
-    auth.set_access_token(token, tsecret)
-    api = tweepy.API(auth)
 
-    return api
+    return TwitterAPI2(key, secret, token, tsecret)
