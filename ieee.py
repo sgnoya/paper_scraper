@@ -39,14 +39,17 @@ twapi = init_twitterapi(
 
 options = Options()
 options.add_argument("--headless")
-options.add_argument('window-size=1400,600')
+options.add_argument("window-size=1400,600")
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
-options.add_experimental_option('useAutomationExtension', False)
+options.add_experimental_option("useAutomationExtension", False)
 options.add_argument("--user-agent=Chrome/110")
-options.add_experimental_option('prefs', {
-    'credentials_enable_service': False,
-    'profile': {'password_manager_enabled': False}
-})
+options.add_experimental_option(
+    "prefs",
+    {
+        "credentials_enable_service": False,
+        "profile": {"password_manager_enabled": False},
+    },
+)
 
 driver = webdriver.Chrome(options=options)
 driver.implicitly_wait(5)
@@ -65,11 +68,14 @@ def get_class(_url, _target, _type="class"):
     driver.quit()
     return soup
 
+
 def get_paper_info(url):
     driver.get(url)
-    journal_title = driver.find_element(by=By.CLASS_NAME, value="title-section").text.split("\n")[0]
+    journal_title = driver.find_element(
+        by=By.CLASS_NAME, value="title-section"
+    ).text.split("\n")[0]
 
-    soup = BeautifulSoup(driver.page_source, 'html.parser')
+    soup = BeautifulSoup(driver.page_source, "html.parser")
     elem = driver.find_elements(by=By.CLASS_NAME, value="result-item-title")
 
     papers = []
@@ -79,16 +85,17 @@ def get_paper_info(url):
 
     return journal_title, papers
 
+
 sent = []
 
 for url in urls:
     # Get the list of papers
     msg = None
     _url = "https://ieeexplore.ieee.org/xpl/tocresult.jsp?isnumber=" + str(url)
-    
+
     journal_title, paper_info = get_paper_info(_url)
-        # send the paper
-    
+    # send the paper
+
     for title, link in paper_info:
         if title + "\n" not in data:
             sent.append(title + "\n")

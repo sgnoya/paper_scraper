@@ -13,14 +13,17 @@ from utils import discord, init_twitterapi
 
 options = Options()
 options.add_argument("--headless")
-options.add_argument('window-size=1400,600')
+options.add_argument("window-size=1400,600")
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
-options.add_experimental_option('useAutomationExtension', False)
+options.add_experimental_option("useAutomationExtension", False)
 options.add_argument("--user-agent=Chrome/110")
-options.add_experimental_option('prefs', {
-    'credentials_enable_service': False,
-    'profile': {'password_manager_enabled': False}
-})
+options.add_experimental_option(
+    "prefs",
+    {
+        "credentials_enable_service": False,
+        "profile": {"password_manager_enabled": False},
+    },
+)
 
 cwd, _ = os.path.split(os.path.abspath(__file__))
 keys = OmegaConf.load(os.path.join(cwd, "keys.yml"))
@@ -48,12 +51,18 @@ for journal in journals:
     print(url)
     driver.get(url)
     time.sleep(5)
-    elem = driver.find_elements(By.CSS_SELECTOR, ".text-m.u-font-serif.u-display-inline")
+    elem = driver.find_elements(
+        By.CSS_SELECTOR, ".text-m.u-font-serif.u-display-inline"
+    )
     papers = []
     for e in elem:
         soup = BeautifulSoup(e.get_attribute("innerHTML"), "html.parser")
-        title = e.find_element(By.CLASS_NAME, "js-article-title").text.replace("\n", " ")
-        papers.append([title, "https://www.sciencedirect.com"+ soup.find("a").get("href")])
+        title = e.find_element(By.CLASS_NAME, "js-article-title").text.replace(
+            "\n", " "
+        )
+        papers.append(
+            [title, "https://www.sciencedirect.com" + soup.find("a").get("href")]
+        )
 
     msg = "@here (Elsevier)" + journal + "\n"
     discord(keys.discord, msg)
@@ -71,7 +80,6 @@ for journal in journals:
             except Exception as e:
                 print(e)
                 print(journal, title, link)
-
 
 
 with open(os.path.join(cwd, "elsevier.csv"), "a") as f:
