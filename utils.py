@@ -1,3 +1,5 @@
+import time
+
 import requests
 import tweepy
 
@@ -13,13 +15,16 @@ class TwitterAPI2:
 
     def update_status(self, msg):
         self.client.create_tweet(text=msg)
+        time.sleep(10)
 
 
 def discord(url, message):
     payload = {"content": message}
     with requests.Session() as s:
         s.headers.update({"Content-Type": "application/x-www-form-urlencoded"})
-        return s.post(url, data=payload)
+        ret = s.post(url, data=payload)
+        time.sleep(2)
+        return ret
 
 
 def init_twitterapi(key, secret, token, tsecret):
