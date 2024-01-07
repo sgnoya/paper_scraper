@@ -49,7 +49,6 @@ for url in urls:
             msg = "@here " + doc.find("dc:source").text + "\n"
             msg += channel.get("rdf:about") + "\n"
             discord(keys.discord, msg)
-            time.sleep(1)
 
         # send the paper
         if (date == today or date == yesterday) and title + "\n" not in data:
@@ -61,7 +60,6 @@ for url in urls:
                 twapi.update_status(msg)
             except Exception as e:
                 print(e)
-            time.sleep(1)
 
 with open(os.path.join(cwd, "siam.csv"), "a") as f:
     f.writelines(sent)

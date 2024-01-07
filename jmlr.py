@@ -46,17 +46,14 @@ for i, doc in enumerate(docs):
         _msg += title + "\n" + link + "\n"
         try:
             twapi.update_status(_msg)
-            time.sleep(0.1)
         except Exception as e:
             print(e)
 
     if (i + 1) % 9 == 0:
         discord(keys.discord, msg + "\n")
-        time.sleep(2)
         msg = ""
 
 discord(keys.discord, msg + "\n")
-time.sleep(2)
 
 with open(os.path.join(cwd, "jmlr.csv"), "a") as f:
     f.writelines(sent)
