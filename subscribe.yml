@@ -1,20 +1,20 @@
 ieee:
-  base: "https://ieeexplore.ieee.org/"
+  base: "https://ieeexplore.ieee.org"
   urls:
-    - 4358840
-    - 4359286
-    - 6104215
-    - 4358651
-    - 4358933
-    - 4667673
-    - 4358835
-    - 6352949
-    - 4359509
-    - 4358004
-    - 7339444
-    - 4456689
-    - 6376248
-    - 7153538
+    - 4358840 # TIP
+    - 4359286 # TPAMI
+    - 6104215 # TNNLS
+    - 4358651 # TSCVT
+    - 4358933 # KDE
+    - 4667673 # TIT
+    - 4358835 # Information Forensics and Security
+    - 6352949 # Cybernetics
+    - 4359509 # Signal processing
+    - 4358004 # SP letters
+    - 7339444 # RAL
+    - 4456689 # Multimedia
+    - 6376248 # Systems, Man, and Cybernetics, Systems
+    - 7153538 # BigData
     # - 6514899
 
 elsevier:
