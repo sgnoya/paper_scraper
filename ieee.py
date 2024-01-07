@@ -1,15 +1,13 @@
 # %%
 import datetime
-import json
 import os
-import re
 import time
 
-import requests
 from bs4 import BeautifulSoup
 from omegaconf import OmegaConf
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 
 from utils import discord, init_twitterapi
 
@@ -41,20 +39,45 @@ twapi = init_twitterapi(
 
 options = Options()
 options.add_argument("--headless")
+options.add_argument('window-size=1400,600')
+options.add_experimental_option("excludeSwitches", ["enable-automation"])
+options.add_experimental_option('useAutomationExtension', False)
+options.add_argument("--user-agent=Chrome/110")
+options.add_experimental_option('prefs', {
+    'credentials_enable_service': False,
+    'profile': {'password_manager_enabled': False}
+})
+
+driver = webdriver.Chrome(options=options)
+driver.implicitly_wait(5)
 
 
 def get_class(_url, _target, _type="class"):
     driver = webdriver.Chrome(options=options)
     driver.get(_url)
+    time.sleep(5)
+
     if _type == "class":
         elem = driver.find_element_by_class_name(_target)
     else:
         elem = driver.find_element_by_id(_target)
-    time.sleep(5)  # FIXME:
     soup = BeautifulSoup(elem.get_attribute("innerHTML"), "html.parser")
     driver.quit()
     return soup
 
+def get_paper_info(url):
+    driver.get(url)
+    journal_title = driver.find_element(by=By.CLASS_NAME, value="title-section").text.split("\n")[0]
+
+    soup = BeautifulSoup(driver.page_source, 'html.parser')
+    elem = driver.find_elements(by=By.CLASS_NAME, value="result-item-title")
+
+    papers = []
+    for e in elem:
+        soup = BeautifulSoup(e.get_attribute("innerHTML"), "html.parser")
+        papers.append((soup.text, base + soup.find("a").get("href")))
+
+    return journal_title, papers
 
 sent = []
 
@@ -62,69 +85,23 @@ for url in urls:
     # Get the list of papers
     msg = None
     _url = "https://ieeexplore.ieee.org/xpl/tocresult.jsp?isnumber=" + str(url)
-    soup = get_class(
-        _url,
-        "global-content-wrapper",
-        "class",
-    )
-    docs = soup.find_all("a")
-    docs = [doc.get("href") for doc in docs]  # all link
-    docs = [doc for doc in docs if doc is not None]
-    docs = list(
-        set(
-            [
-                doc
-                for doc in docs
-                if "document" in doc and "?" not in doc and "#" not in doc
-            ]
-        )
-    )  # only paper links
-    print(docs)
-
-    # get info of a paper
-    for doc in docs:
-        soup = get_class(base + doc, "LayoutWrapper", "id")
-        target = None
-        # search meta data
-        for i in soup.find_all("script", type="text/javascript"):
-            if i.string is not None:
-                if "xplGlobal.document.metadata" in i.string:
-                    target = i
-                    break
-
-        meta = re.search(
-            r"xplGlobal.document.metadata\=\{.+?\};", target.decode()
-        )
-        meta = meta.group()
-        meta = re.sub(";", "", meta)
-        meta = re.sub("xplGlobal.document.metadata\=", "", meta)
-
-        dic = json.loads(meta)
-        title = dic["formulaStrippedArticleTitle"]
-        date = dic["onlineDate"]
-        link = dic["doiLink"]
-
-        if msg is None:
-            msg = "@here " + dic["publicationTitle"] + "\n"
-            msg += _url + "\n"
-            discord(keys.discord, msg)
-
+    
+    journal_title, paper_info = get_paper_info(_url)
         # send the paper
-        day, month, year = date.split(" ")
-        if (int(day) == int(t_day) and month == t_month and year == t_year) or (
-            int(day) == int(y_day) and month == y_month and year == y_year
-        ):
-            if title + "\n" not in data:
-                sent.append(title + "\n")
-
-                msg = "[" + dic["publicationTitle"] + "]\n"
-                msg += title + "\n" + link + "\n"
-                discord(keys.discord, msg)
-                try:
-                    twapi.update_status(msg)
-                except Exception as e:
-                    print(e)
+    
+    for title, link in paper_info:
+        if title + "\n" not in data:
+            sent.append(title + "\n")
+            msg = "[" + journal_title + "]\n"
+            msg += title + "\n" + link + "\n"
+            discord(keys.discord, msg)
+            try:
+                twapi.update_status(msg)
+            except Exception as e:
+                print(e)
 
 
 with open(os.path.join(cwd, "ieee.csv"), "a") as f:
     f.writelines(sent)
+
+driver.quit()
