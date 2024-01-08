@@ -1,5 +1,5 @@
 ieee:
-  base: "https://ieeexplore.ieee.org"
+  base: "https://ieeexplore.ieee.org/"
   urls:
     - 4358840 # TIP
     - 4359286 # TPAMI
