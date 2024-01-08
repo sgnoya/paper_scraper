@@ -22,7 +22,7 @@ with open(os.path.join(cwd, "jmlr.csv"), "r") as f:
 
 sent = []
 
-url = "https://www.jmlr.org/"
+url = "https://www.jmlr.org"
 response = requests.get(url)
 soup = BeautifulSoup(response.content.decode(), "html.parser")
 docs = soup.find_all("dl")
@@ -36,7 +36,7 @@ for i, doc in enumerate(docs):
 
     title = doc.find("dt").text
     link = doc.find_all("a")
-    link = url + [i.get("href") for i in link if "pdf" in i.get("href")][0]
+    link = url + [i.get("href") for i in link if ".html" in i.get("href")][0]
 
     if title + "\n" not in data:
         msg += title + "\n" + link + "\n"
