@@ -15,7 +15,42 @@ ieee:
     - 4456689 # Multimedia
     - 6376248 # Systems, Man, and Cybernetics, Systems
     - 7153538 # BigData
-    # - 6514899
+    # - 6514899 # Access
+    - 9184921 # TAI
+    - 7778228 # Aerospace and Electronic Systems
+    - 5451756 # Communications Surveys & Tutorials
+    - 4357935 # Proceedings of the IEEE
+    - 4358751 # Evolutionary Computation.
+    - 5594698 # Selected Areas in Communications
+    - 4389054 # Industrial Informatics
+    - 4359023 # Medical Imaging
+    - 4358784 # Fuzzy Systems
+    - 6702522 # IOT
+    - 5418892 # Selected Topics in Signal Processing
+    - 5520654 # Affective Computing
+    - 8599058 # Biometrics, Behavior, and Identity Science
+    - 7422051 # Cognitive and Developmental Systems
+    - 4359833 # Computational Bilogy and Bioinformatics
+    - 6960042 # Computational Imaging
+    - 8416766 # Letters of Computer Society
+    - 9024218 # Open Journal of the Computer Society
+    - 7777658 # Emerging Topics in Computational Intelligence
+    - 9107390 # Emerging and Selecte topics in industrial electronics
+    - 6558478 # Emerging Topics in Computing
+    - 4357975 # Remote Sensing Letters
+    - 4358825 # Geoscience and Remote Sensing
+    # - 4543165 # haptics
+    - 10144586 # Industrial Cyber-Physcial Systems
+    - 4358928 # Intelligent Transportation Systems
+    - 7448921 # intelligent vehicles
+    - 4620077 # Learning Technologies
+    - 10070384 # Machine Learning in Communications and Networking
+    - 4456689 # Multimedia
+    - 4359219 # Neural Systems and Rehabilitation Engineering
+    - 7103030 # Signal and Information Processing over Networks
+    - 9006934 # Open journal of signal processing
+    - 7742329 # Sustainable computing
+    - 4359476 # Visualization and CG
 
 elsevier:
   journals:
@@ -34,37 +69,39 @@ elsevier:
     - applied-mathematics-and-computation
     - journal-of-visual-communication-and-image-representation
     - linear-algebra-and-its-applications
+    - computer-science-review
+    - medical-image-analysis
 
 springer:
   base: https://link.springer.com/
   journals:
-    - 10994
-    - 11042
-    - 10115
-    - 11263
-    - 521
-    - 10618
-    - 10462
-    - 10489
-    - 11280
-    - 371
-    - 41060
-    - 10589
-    - 138
-    - 10845
-    - 13042
-    - 11590
-    - 10851
-    - 10208
-    - 34
-    - 11063
-    - 10915
-    - 11704
-    - 10957
-    - 12021
-    - 11760
-    - 11222
-    - 10044
+    - 10994 # Machine Learning
+    - 11042 # Multimedia Tools and Applications
+    - 10115 # Knowledge and Information Systems
+    - 11263 # IJCV
+    - 521 # Neural Computing and Applications
+    - 10618 # Data Mining and Knowledge Discovery
+    - 10462 # Artificial Intelligence Review
+    - 10489 # Applied Intelligence
+    - 11280 # WWW 
+    - 371 # The Visual Computer
+    - 41060 # DS and Analytics
+    - 10589 # Computational Optimization and Applications
+    - 138 # Machine Vision and Applications
+    - 10845 # Journal of Intelligent Manufacturing
+    - 13042 # International Journal of Machine Learning and Cybernetics
+    - 11590 # Optimization Letters
+    - 10851 # Journal of Mathematical Imaging and Vision
+    - 10208 # Foundations of Computational Mathematics
+    - 34 # Circuits, Systems, and Signal Processing
+    - 11063 # Neural Processing Letters
+    - 10915 # Journal of Scientific Computing
+    - 11704 # Frontiers of Computer Science
+    - 10957 # Journal of Optimization Theory and Applications
+    - 12021 # Neuroinformatics
+    - 11760 # Signal, Image and Video Processing
+    - 11222 # Statistics and Computing
+    - 10044 # Pattern Analysis and Applications
 
 siam:
   urls:
