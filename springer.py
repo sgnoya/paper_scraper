@@ -46,12 +46,12 @@ for journal in journals:
 
         if title + "\n" not in data:
             msg += title + "\n" + link + "\n"
-            sent.append(title + "\n")
 
             _msg = "[Springer: " + journal_name + "]\n"
             _msg += title + "\n" + link + "\n"
             try:
                 twapi.update_status(_msg)
+                sent.append(title + "\n")
             except Exception as e:
                 print(e)
 

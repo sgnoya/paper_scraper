@@ -98,12 +98,12 @@ for url in urls:
 
     for title, link in paper_info:
         if title + "\n" not in data:
-            sent.append(title + "\n")
             msg = "[" + journal_title + "]\n"
             msg += title + "\n" + link + "\n"
             discord(keys.discord, msg)
             try:
                 twapi.update_status(msg)
+                sent.append(title + "\n")
             except Exception as e:
                 print(e)
 

@@ -55,9 +55,10 @@ for url in urls:
             msg = "[" + doc.find("dc:source").text + "]\n"
             msg += title + "\n" + link + "\n"
             discord(keys.discord, msg)
-            sent.append(title + "\n")
+
             try:
                 twapi.update_status(msg)
+                sent.append(title + "\n")
             except Exception as e:
                 print(e)
 

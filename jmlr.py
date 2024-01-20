@@ -40,12 +40,12 @@ for i, doc in enumerate(docs):
 
     if title + "\n" not in data:
         msg += title + "\n" + link + "\n"
-        sent.append(title + "\n")
 
         _msg = "[JMLR] "
         _msg += title + "\n" + link + "\n"
         try:
             twapi.update_status(_msg)
+            sent.append(title + "\n")
         except Exception as e:
             print(e)
 
